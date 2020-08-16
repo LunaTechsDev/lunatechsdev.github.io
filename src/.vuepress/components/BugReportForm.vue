@@ -353,7 +353,7 @@ ${this.offendingCode}
           content
         }
 
-        const response = await fetch(`${DEV_API_URL}/reportBug`, {
+        const response = await fetch(`${API_URL}/reportBug`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -391,7 +391,7 @@ ${this.offendingCode}
       this.plugins = JSON.parse(localStorage.plugins)
       return
     }
-    const gitResponse = await fetch(`${DEV_API_URL}/fetchGitProjects`)
+    const gitResponse = await fetch(`${API_URL}/fetchGitProjects`)
     const projectData = await gitResponse.json()
     const plugins = filterGitProjects(projectData)
     
