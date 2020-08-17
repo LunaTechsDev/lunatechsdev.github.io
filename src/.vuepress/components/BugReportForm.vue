@@ -418,18 +418,18 @@ small.required {
 input, select, textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   box-sizing: border-box;
   margin-top: 6px;
   margin-bottom: 16px;
   resize: vertical;
-  background-color: #262424;
-  color: white;
+  background-color: var(--border-color);
+  color: var(--text-color);
 }
 
 input[type='submit'] {
-  background-color: $accentColor;
+  background-color: var(--accent-color);
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
@@ -451,7 +451,7 @@ input[type='submit'].disabled {
   margin: 2rem;
   border-left: 5px solid $badgeWarningColor;
   padding-left: 1rem;
-  color: $textColor;
+  color: var(--text-color);
 }
 
 .grid {
