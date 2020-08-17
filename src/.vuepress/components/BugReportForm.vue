@@ -364,10 +364,8 @@ ${this.offendingCode}
           })
         })
 
-        console.log(response)
         if (response.ok) {
           const issueData = await response.json()
-          console.log(issueData)
           this.formSubmitted = true
           this.isProcessing = false
           this.issueLink = issueData.data.html_url
