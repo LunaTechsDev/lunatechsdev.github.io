@@ -2,7 +2,7 @@
   <div class="theme-container">
     <div v-show="formSubmitted">
       <p>
-        Your bug has been succesfully reported at {{ issueLink }}
+        Your bug has been succesfully reported at <a :href="issueLink">{{issueLink}}</a>
         </p>
     </div>
     <form v-show="!formSubmitted">
