@@ -30,7 +30,8 @@ module.exports = resolve({
       { text: 'Plugins', link: '/plugins/' },
       { text: 'Support', items: [
         { text: 'F.A.Q', link: '/faq' },
-        { text: 'Terms', link: '/terms-of-use' }
+        { text: 'Terms', link: '/terms-of-use' },
+        { text: 'Report Bug', link: '/report-bug' }
       ]}
     ]
   }
