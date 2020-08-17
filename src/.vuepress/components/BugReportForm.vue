@@ -487,4 +487,14 @@ input[type='submit'].disabled {
     transform: rotate(360deg);
   }
 }
+
+// IOS style fix | Stops the terrible rounded, drop shadowed form style IOS forces
+textarea,
+input.text,
+input[type="text"],
+input[type="button"],
+input[type="submit"],
+.input-checkbox {
+-webkit-appearance: none;
+}
 </style>
