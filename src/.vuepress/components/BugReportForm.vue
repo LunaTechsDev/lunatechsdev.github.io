@@ -3,7 +3,7 @@
     <div v-show="formSubmitted">
       <p>
         Your bug has been succesfully reported at {{ issueLink }}
-      </p>
+        </p>
     </div>
     <form v-show="!formSubmitted">
       <div class="warning">
@@ -194,8 +194,8 @@
 
 <script>
 const SITE_KEY = 'e51b1a3d-0744-4838-8711-e12acab1a02a-S0ino7o'
-const DEV_API_URL = 'http://localhost:5000/api'
-const API_URL = 'https://api.lunatechs.dev/'
+const DEV_API_URL = 'http://localhost:5000/v1'
+const API_URL = 'https://api.lunatechs.dev/v1'
 
 async function timeout (time) {
   return new Promise(resolve => setTimeout(() => { resolve() }, time))
@@ -215,7 +215,7 @@ function filterGitProjects (projects) {
       }
     }
   })
-  .filter(plugin => plugin)
+    .filter(plugin => plugin)
 }
 
 export default {
@@ -387,14 +387,14 @@ ${this.offendingCode}
   },
 
   async mounted () {
-     if (localStorage.plugins) {
+    if (localStorage.plugins) {
       this.plugins = JSON.parse(localStorage.plugins)
       return
     }
     const gitResponse = await fetch(`${API_URL}/fetchGitProjects`)
     const projectData = await gitResponse.json()
     const plugins = filterGitProjects(projectData)
-    
+
     this.plugins = plugins
     localStorage.plugins = JSON.stringify(plugins)
 
