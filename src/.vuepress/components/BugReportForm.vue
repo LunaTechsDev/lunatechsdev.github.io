@@ -430,6 +430,7 @@ input, select, textarea {
 
 input[type='submit'] {
   background-color: var(--accent-color);
+  color: black;
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
@@ -439,7 +440,7 @@ input[type='submit'] {
 }
 
 input[type='submit']:hover {
-  background-color: darken($accentColor, 15%);
+  filter: brightness(110%);
 }
 
 input[type='submit'].disabled {
