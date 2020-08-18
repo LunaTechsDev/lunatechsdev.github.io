@@ -2,8 +2,8 @@
   <div class="theme-container">
     <div v-show="formSubmitted">
       <p>
-        Your bug has been succesfully reported at {{ issueLink }}
-      </p>
+        Your bug has been succesfully reported at <a :href="issueLink">{{issueLink}}</a>
+        </p>
     </div>
     <form v-show="!formSubmitted">
       <div class="warning">
@@ -194,8 +194,8 @@
 
 <script>
 const SITE_KEY = 'e51b1a3d-0744-4838-8711-e12acab1a02a-S0ino7o'
-const DEV_API_URL = 'http://localhost:5000/api'
-const API_URL = 'https://api.lunatechs.dev/'
+const DEV_API_URL = 'http://localhost:5000/v1'
+const API_URL = 'https://api.lunatechs.dev/v1'
 
 async function timeout (time) {
   return new Promise(resolve => setTimeout(() => { resolve() }, time))
@@ -215,7 +215,7 @@ function filterGitProjects (projects) {
       }
     }
   })
-  .filter(plugin => plugin)
+    .filter(plugin => plugin)
 }
 
 export default {
@@ -364,10 +364,8 @@ ${this.offendingCode}
           })
         })
 
-        console.log(response)
         if (response.ok) {
           const issueData = await response.json()
-          console.log(issueData)
           this.formSubmitted = true
           this.isProcessing = false
           this.issueLink = issueData.data.html_url
@@ -387,14 +385,14 @@ ${this.offendingCode}
   },
 
   async mounted () {
-     if (localStorage.plugins) {
+    if (localStorage.plugins) {
       this.plugins = JSON.parse(localStorage.plugins)
       return
     }
     const gitResponse = await fetch(`${API_URL}/fetchGitProjects`)
     const projectData = await gitResponse.json()
     const plugins = filterGitProjects(projectData)
-    
+
     this.plugins = plugins
     localStorage.plugins = JSON.stringify(plugins)
 
@@ -420,18 +418,19 @@ small.required {
 input, select, textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   box-sizing: border-box;
   margin-top: 6px;
   margin-bottom: 16px;
   resize: vertical;
-  background-color: #262424;
-  color: white;
+  background-color: var(--border-color);
+  color: var(--text-color);
 }
 
 input[type='submit'] {
-  background-color: $accentColor;
+  background-color: var(--accent-color);
+  color: black;
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
@@ -441,7 +440,7 @@ input[type='submit'] {
 }
 
 input[type='submit']:hover {
-  background-color: darken($accentColor, 15%);
+  filter: brightness(110%);
 }
 
 input[type='submit'].disabled {
@@ -453,7 +452,7 @@ input[type='submit'].disabled {
   margin: 2rem;
   border-left: 5px solid $badgeWarningColor;
   padding-left: 1rem;
-  color: $textColor;
+  color: var(--text-color);
 }
 
 .grid {
@@ -488,5 +487,15 @@ input[type='submit'].disabled {
   100% {
     transform: rotate(360deg);
   }
+}
+
+// IOS style fix | Stops the terrible rounded, drop shadowed form style IOS forces
+textarea,
+input.text,
+input[type="text"],
+input[type="button"],
+input[type="submit"],
+.input-checkbox {
+-webkit-appearance: none;
 }
 </style>
