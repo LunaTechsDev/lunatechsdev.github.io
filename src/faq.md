@@ -6,6 +6,8 @@ description: Frequently Asked Questions
 # {{ $frontmatter.title }}
 
 ## Is LunaTechs ready?
+We are still in the process of settings things up! But we are ready soon!
+
 You can find all currently released plugins on the [plugins page](/plugins/)  or on our [Itch Store](https://lunatechsdev.itch.io)
 
 ## Who is it for?
@@ -16,12 +18,17 @@ LunaTechs was created when 3 plugin developers in the `RPG Maker` community deci
 
 You can find the 3 mysterious plugin developers here
 
-  * [kino](https://github.com/KinoAR)
-  * [wayne95](https://github.com/waynee95)
+  * [Kino](https://github.com/KinoAR)
+  * [waynee95](https://github.com/waynee95)
   * [inc0der](https://github.com/inc0der)
 
+## Are you affiliated with LunaEngine? Where does the name come from?
+No, we are not affiliated with LunaEngine in any way! The origin of the name is 
+the [Lunatic Server](https://discord.gg/Qvph69x). A pretty big community server
+for RPG Maker. Our name is just a word play... Lunatic Server... Lunatics... LunaTechs :smiley:. 
+
 ## What are the terms of use?
-The terms of use are available to view on the [terms of use page](terms-of-use.html)
+The terms of use are available to view on the [terms of use page](terms-of-use.html).
 
 ## Isn’t it a great idea to add some awesome features to LunaTechs plugin(s)?
 Yes, absolutely! We highly encourage the community to contribute whenever possible and suggest features so we can make this the best and most compatible plugin suite available for `RPG Maker`.
