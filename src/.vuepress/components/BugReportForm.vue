@@ -193,7 +193,7 @@
 </template>
 
 <script>
-const SITE_KEY = 'e51b1a3d-0744-4838-8711-e12acab1a02a-S0ino7o'
+const SITE_KEY = 'e51b1a3d-0744-4838-8711-e12acab1a02a'
 const DEV_API_URL = 'http://localhost:5000/v1'
 const API_URL = 'https://api.lunatechs.dev/v1'
 
