@@ -1,9 +1,9 @@
 ---
 home: true
+heroImage: /logo.png
 heroText: LunaTechs
 tagline: A powerful RPG Maker plugin development team
-actionText: See Library→
-actionLink: /plugins/
+
 features:
 - title: Simplicity First
   details: Our plugins will be simple to use and easy to learn.
