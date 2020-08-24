@@ -2,15 +2,22 @@
   <div class="theme-container">
     <div v-show="formSubmitted">
       <p>
-        Your bug has been succesfully reported at <a :href="issueLink">{{issueLink}}</a>
-        </p>
+        Your bug has been succesfully reported at
+        <a :href="issueLink">{{ issueLink }}</a>
+      </p>
     </div>
     <form v-show="!formSubmitted">
       <div class="warning">
         <b>Important!</b>
         <ul>
-          <li>Please fill in as much as possible, else, the bug report may be deleted without notice.</li>
-          <li>This bug report will be publicly available so do not share sensitive information.</li>
+          <li>
+            Please fill in as much as possible, else, the bug report may be
+            deleted without notice.
+          </li>
+          <li>
+            This bug report will be publicly available so do not share sensitive
+            information.
+          </li>
         </ul>
       </div>
       <label for="title" ref="title">
@@ -31,9 +38,7 @@
           </label>
           <select v-model="selectedPluginRepo" name="plugin">
             <option v-for="plugin in plugins" :value="plugin.repo">
-              {{
-              plugin.name
-              }}
+              {{ plugin.name }}
             </option>
           </select>
         </div>
@@ -58,10 +63,11 @@
             </small>
           </label>
           <select v-model="bugLocation" name="bugLocation">
-            <option v-for="location in bugLocations" :value="location.toLowerCase()">
-              {{
-              location
-              }}
+            <option
+              v-for="location in bugLocations"
+              :value="location.toLowerCase()"
+            >
+              {{ location }}
             </option>
           </select>
           <input
@@ -81,9 +87,7 @@
           </label>
           <select v-model="bugAction" name="plugin">
             <option v-for="action in bugActions" :value="action.toLowerCase()">
-              {{
-              action
-              }}
+              {{ action }}
             </option>
           </select>
           <input
@@ -193,142 +197,162 @@
 </template>
 
 <script>
-const SITE_KEY = 'e51b1a3d-0744-4838-8711-e12acab1a02a'
-const DEV_API_URL = 'http://localhost:5000/v1'
-const API_URL = 'https://api.lunatechs.dev/v1'
+const SITE_KEY = "e51b1a3d-0744-4838-8711-e12acab1a02a";
+const DEV_API_URL = "http://localhost:5000/v1";
+const API_URL = "https://api.lunatechs.dev/v1";
 
-async function timeout (time) {
-  return new Promise(resolve => setTimeout(() => { resolve() }, time))
+async function timeout(time) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve();
+    }, time)
+  );
 }
 
-function filterGitProjects (projects) {
-  return projects.map(project => {
-    const pluginKeyMatch = [...project.description.matchAll(/`(.*)`/g)]
-    const matches = pluginKeyMatch[0]
+function filterGitProjects(projects) {
+  return projects
+    .map((project) => {
+      const pluginKeyMatch = [...project.description.matchAll(/`(.*)`/g)];
+      const matches = pluginKeyMatch[0];
 
-    if (matches && matches.length > 0) {
-      return {
-        repo: project.name,
-        name: matches[1],
-        url: project.url,
-        id: project.id
+      if (matches && matches.length > 0) {
+        return {
+          repo: project.name,
+          name: matches[1],
+          url: project.url,
+          id: project.id,
+        };
       }
-    }
-  })
-    .filter(plugin => plugin)
+    })
+    .filter((plugin) => plugin);
 }
 
 export default {
-  data () {
+  data() {
     return {
       formSubmitted: false,
       plugins: [],
-      title: '',
-      selectedPluginRepo: '',
-      os: '🏁 Windows 10',
-      bugLocations: ['Game Map', 'Battle Scene', 'Menu', 'Other'],
-      bugLocation: '',
-      bugLocationOther: '',
-      bugActions: ['Moving', 'Processing an Event', 'Opening Menu', 'Switching Scenes', 'Other'],
-      bugAction: '',
-      bugActionOther: '',
-      description: '',
-      expectedBehaviour: '',
-      actualBehaviour: '',
-      stepsToReproduce: '',
-      offendingCode: '',
-      gameDemoLink: '',
+      title: "",
+      selectedPluginRepo: "",
+      os: "🏁 Windows 10",
+      bugLocations: ["Game Map", "Battle Scene", "Menu", "Other"],
+      bugLocation: "",
+      bugLocationOther: "",
+      bugActions: [
+        "Moving",
+        "Processing an Event",
+        "Opening Menu",
+        "Switching Scenes",
+        "Other",
+      ],
+      bugAction: "",
+      bugActionOther: "",
+      description: "",
+      expectedBehaviour: "",
+      actualBehaviour: "",
+      stepsToReproduce: "",
+      offendingCode: "",
+      gameDemoLink: "",
       errors: [],
-      captchaUserToken: '',
-      issueLink: '',
-      isProcessing: false
-    }
+      captchaUserToken: "",
+      issueLink: "",
+      isProcessing: false,
+    };
   },
 
   methods: {
-    canShowLoader () {
-      return this.isProcessing && !this.formSubmitted
+    canShowLoader() {
+      return this.isProcessing && !this.formSubmitted;
     },
 
-    onCaptchaExpire () {
-      this.errors.push('Captcha expired')
+    onCaptchaExpire() {
+      this.errors.push("Captcha expired");
     },
 
-    async onCaptchaFullfilled (token) {
-      this.captchaUserToken = token
+    async onCaptchaFullfilled(token) {
+      this.captchaUserToken = token;
     },
 
-    async validateCapctha () {
+    async validateCapctha() {
       try {
-        const apiString = `${API_URL}/verifyCaptcha`
-        const data = await fetch(`${apiString}?token=${this.captchaUserToken}`)
+        const apiString = `${API_URL}/verifyCaptcha`;
+        const data = await fetch(`${apiString}?token=${this.captchaUserToken}`);
 
-        return data
+        return data;
       } catch (error) {
-        const message = 'Error verifying captcha with server, contact website administrator'
-        console.error(message, error)
+        const message =
+          "Error verifying captcha with server, contact website administrator";
+        console.error(message, error);
       }
     },
 
-    async validateForm () {
+    async validateForm() {
       /* eslint-disable dot-notation */
-      this.errors = []
+      this.errors = [];
 
       if (!this.title) {
-        this.errors.push('A Title is required')
+        this.errors.push("A Title is required");
       }
 
       if (!this.selectedPluginRepo) {
-        this.errors.push('The affected plugin is required')
+        this.errors.push("The affected plugin is required");
       }
 
       if (!this.bugLocation && this.bugLocationOther) {
-        this.errors.push('The location of the bug is required')
+        this.errors.push("The location of the bug is required");
       }
 
       if (!this.bugAction && this.bugLocationOther) {
-        this.errors.push('The action before bug is required')
+        this.errors.push("The action before bug is required");
       }
 
       if (!this.description) {
-        this.errors.push('A description is required')
+        this.errors.push("A description is required");
       }
 
       if (!this.gameDemoLink) {
-        this.errors.push('A link to a demo game is required')
+        this.errors.push("A link to a demo game is required");
       }
 
-      if (!this.$refs['gameDemoLink'].checkValidity()) {
-        this.errors.push('Invalid URL for the game demo link')
+      if (!this.$refs["gameDemoLink"].checkValidity()) {
+        this.errors.push("Invalid URL for the game demo link");
       }
 
       if (!this.captchaUserToken) {
-        this.errors.push('You need to complete the reCaptcha')
+        this.errors.push("You need to complete the reCaptcha");
       }
 
       if (this.errors.length > 0) {
-        return false
+        return false;
       }
 
       // We don't attempt captcha validation until errors are solved above. This will ensure we perform less server calls.
-      const validationRequest = await this.validateCapctha()
-      const isValidated = await validationRequest.text() === 'true'
+      const validationRequest = await this.validateCapctha();
+      const isValidated = (await validationRequest.text()) === "true";
 
       if (!isValidated) {
-        this.errors.push('reCaptcha was unable to determine if you\'re a human, please try again.')
-        return false
+        this.errors.push(
+          "reCaptcha was unable to determine if you're a human, please try again."
+        );
+        return false;
       }
-      return true
+      return true;
     },
 
-    async submitReport () {
-      this.isProcessing = true
-      const isValid = await this.validateForm()
+    async submitReport() {
+      this.isProcessing = true;
+      const isValid = await this.validateForm();
 
       if (isValid) {
         const content = `
-**Location bug occurs:** ${this.bugLocation !== 'other' ? this.bugLocation : this.bugLocationOther}\n
-**Action performed before bug:** ${this.bugAction !== 'other' ? this.bugAction : this.bugActionOther}\n
+**Location bug occurs:** ${
+          this.bugLocation !== "other"
+            ? this.bugLocation
+            : this.bugLocationOther
+        }\n
+**Action performed before bug:** ${
+          this.bugAction !== "other" ? this.bugAction : this.bugActionOther
+        }\n
 # Description
 ${this.description}
 
@@ -345,69 +369,69 @@ ${this.stepsToReproduce}
 ${this.offendingCode}
 
 **Demo Game Link:** ${this.gameDemoLink}
-`
+`;
 
         const data = {
           title: this.title,
-          labels: ['🐛 bug', '📃 Website Report', this.os],
-          content
-        }
+          labels: ["🐛 bug", "📃 Website Report", this.os],
+          content,
+        };
 
         const response = await fetch(`${API_URL}/reportBug`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             repo: this.selectedPluginRepo,
-            data
-          })
-        })
+            data,
+          }),
+        });
 
         if (response.ok) {
-          const issueData = await response.json()
-          this.formSubmitted = true
-          this.isProcessing = false
-          this.issueLink = issueData.data.html_url
-          return
+          const issueData = await response.json();
+          this.formSubmitted = true;
+          this.isProcessing = false;
+          this.issueLink = issueData.data.html_url;
+          return;
         }
-        this.errors.push('Unable to submit report')
-        console.error(response)
+        this.errors.push("Unable to submit report");
+        console.error(response);
       }
-      await timeout(1600) // We wait before allowing user to re-validate too quickly
-      this.isProcessing = false
+      await timeout(1600); // We wait before allowing user to re-validate too quickly
+      this.isProcessing = false;
     },
 
-    resetForm () {
-      Object.assign(this.$data, this.$options.data.apply(this))
-      window.hcaptcha.reset()
-    }
+    resetForm() {
+      Object.assign(this.$data, this.$options.data.apply(this));
+      window.hcaptcha.reset();
+    },
   },
 
-  async mounted () {
+  async mounted() {
     if (localStorage.plugins) {
-      this.plugins = JSON.parse(localStorage.plugins)
-      return
+      this.plugins = JSON.parse(localStorage.plugins);
+      return;
     }
-    const gitResponse = await fetch(`${API_URL}/fetchGitProjects`)
-    const projectData = await gitResponse.json()
-    const plugins = filterGitProjects(projectData)
+    const gitResponse = await fetch(`${API_URL}/fetchGitProjects`);
+    const projectData = await gitResponse.json();
+    const plugins = filterGitProjects(projectData);
 
-    this.plugins = plugins
-    localStorage.plugins = JSON.stringify(plugins)
+    this.plugins = plugins;
+    localStorage.plugins = JSON.stringify(plugins);
 
-    const hcaptcha = window.hcaptcha
-    const captchaElement = document.getElementById('h-captcha')
+    const hcaptcha = window.hcaptcha;
+    const captchaElement = document.getElementById("h-captcha");
 
     hcaptcha.render(captchaElement, {
       sitekey: SITE_KEY,
-      theme: 'dark',
+      theme: "dark",
       callback: (d) => this.onCaptchaFullfilled(d),
-      'expired-callback': this.onCaptchaExpire,
-      'error-callback': (err) => console.error(err)
-    })
-  }
-}
+      "expired-callback": this.onCaptchaExpire,
+      "error-callback": (err) => console.error(err),
+    });
+  },
+};
 </script>
 
 <style lang="stylus">
