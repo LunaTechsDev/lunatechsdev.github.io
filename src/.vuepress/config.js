@@ -2,7 +2,7 @@ const resolve = require("vuepress-theme-hope/resolve");
 
 module.exports = resolve({
   title: "LunaTechsDev",
-  description: "Just playing around",
+  description: "We are a small team of plugin developers that have come together to create plugins and tools for both RPGMakerMV and MZ.",
   baseLang: "en-US",
   head: [["script", { src: "https://hcaptcha.com/1/api.js" }, "async defer"]],
   locales: {

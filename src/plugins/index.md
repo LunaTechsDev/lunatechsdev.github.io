@@ -4,4 +4,4 @@ title: Plugins
 
 # {{ $frontmatter.title }}
 
-Coming soon
+Check out our [itch.io page](https://lunatechsdev.itch.io/)!

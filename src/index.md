@@ -2,7 +2,7 @@
 home: true
 heroImage: /logo.png
 heroText: LunaTechs
-tagline: A powerful RPG Maker plugin development team
+tagline: We are a small team of plugin developers that have come together to create plugins and tools for both RPGMakerMV and MZ.
 
 features:
   - title: Open Source
